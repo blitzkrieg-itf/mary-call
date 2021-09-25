@@ -9,9 +9,10 @@ import 'package:geolocator/geolocator.dart';
 import 'addTimer.dart';
 import 'variant.dart';
 import 'map.dart';
+import 'base.dart';
 
 void main() {
-  runApp(MaterialApp(home: TimerPage())); // ここが Widget ツリーの起点
+  runApp(MaterialApp(home: BasePage())); // ここが Widget ツリーの起点
 }
 
 class TimerPage extends StatefulWidget {
@@ -113,7 +114,7 @@ class _TimerPageState extends State<TimerPage> {
           heroTag: "hero3",
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => addTimer()));
+                context, MaterialPageRoute(builder: (context) => AddTimer()));
           }),
     );
   }

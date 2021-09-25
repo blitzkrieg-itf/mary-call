@@ -10,13 +10,13 @@ import 'package:intl/intl.dart';
 import 'variant.dart';
 import 'main.dart';
 
-class addTimer extends StatefulWidget {
+class AddTimer extends StatefulWidget {
   // 状態を持ちたいので StatefulWidget を継承
   @override
-  _addTimerState createState() => _addTimerState();
+  _AddTimerState createState() => _AddTimerState();
 }
 
-class _addTimerState extends State<addTimer> {
+class _AddTimerState extends State<AddTimer> {
   final _formKey = GlobalKey<FormState>();
 
   DateFormat formatter;
@@ -29,10 +29,17 @@ class _addTimerState extends State<addTimer> {
     formatter = new DateFormat('HH:mm');
   }
 
+  // extension TimeOfDayExtension on TimeOfDay {
+  //   TimeOfDay addHour(int hour) {
+  //     return this.replacing(hour: this.hour + hour, minute: this.minute);
+  //   }
+  // }
+
   Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay t = await showTimePicker(
       context: context,
-      initialTime: TimeOfDay.now(),
+      initialTime:
+          TimeOfDay.fromDateTime(DateTime.now().add(Duration(hours: 9))),
     );
     if (t != null) {
       var dt = _toDateTime(t);
@@ -60,7 +67,7 @@ class _addTimerState extends State<addTimer> {
         child: Scaffold(
           // *** 追加する部分 ***
           appBar: AppBar(
-            title: Text('リスト追加'),
+            title: Text('アラーム設定'),
           ),
           // *** 追加する部分 ***
           body: Container(
@@ -94,8 +101,8 @@ class _addTimerState extends State<addTimer> {
                     // リスト追加ボタン
                     child: ElevatedButton(
                       onPressed: () {
-                        set_times.add(_mytime);
-                        Navigator.of(context).pop();
+                        // set_times.add(_mytime);
+                        set_times.add(_mytime.add(Duration(days: 1)));
                       },
                       child: Text('登録', style: TextStyle(color: Colors.white)),
                     ),
@@ -109,7 +116,7 @@ class _addTimerState extends State<addTimer> {
                       // ボタンをクリックした時の処理
                       onPressed: () {
                         // "pop"で前の画面に戻る
-                        Navigator.of(context).pop();
+                        FlutterRingtonePlayer.stop();
                       },
                       child: Text('キャンセル'),
                     ),
