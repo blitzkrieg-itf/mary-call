@@ -59,7 +59,7 @@ class _MapPageState extends State<MapPage> {
         textField: "Mary",
         textAnchor: "top",
         textColor: "#000",
-        textHaloColor: "#000",
+        textHaloColor: "#FFF",
         textHaloWidth: 3,
         iconImage: "mapbox-marker-icon-blue",
         //iconImage: "marker-15",
@@ -104,7 +104,7 @@ class _MapPageState extends State<MapPage> {
       accessToken:
           "sk.eyJ1IjoiYW1peGVkY29sb3IiLCJhIjoiY2t0enFqNmt1MXliMjJwcXQ5amhhOTl2NSJ9._57ZEf9QRS391RNcdtsiuQ",
       // 地図（スタイル）を指定（デフォルト地図の場合は省略可）
-      // styleString: _style,
+      styleString: _style,
       // 初期表示される位置情報を現在位置から設定
       initialCameraPosition: CameraPosition(
         target: LatLng(_yourLocation!.latitude ?? _initialLat,
