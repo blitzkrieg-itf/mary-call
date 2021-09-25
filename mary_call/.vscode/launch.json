@@ -1,0 +1,22 @@
+{
+  // IntelliSense を使用して利用可能な属性を学べます。
+  // 既存の属性の説明をホバーして表示します。
+  // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "mary_call",
+      "request": "launch",
+      "type": "dart",
+      "env":{
+        "SDK_REGISTRY_TOKEN":"sk.eyJ1IjoiYW1peGVkY29sb3IiLCJhIjoiY2t0enFqNmt1MXliMjJwcXQ5amhhOTl2NSJ9._57ZEf9QRS391RNcdtsiuQ"
+      },
+    },
+    {
+      "name": "mary_call (profile mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    }
+  ]
+}

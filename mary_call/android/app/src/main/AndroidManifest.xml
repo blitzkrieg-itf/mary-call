@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mary_call">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
    <application
         android:label="mary_call"
         android:icon="@mipmap/ic_launcher">
@@ -17,6 +18,10 @@
             <meta-data
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
+              />
+            <meta-data
+              android:name="com.mapbox.token"
+              android:value="sk.eyJ1IjoiYW1peGVkY29sb3IiLCJhIjoiY2t0enFqNmt1MXliMjJwcXQ5amhhOTl2NSJ9._57ZEf9QRS391RNcdtsiuQ"
               />
             <!-- Displays an Android View that continues showing the launch screen
                  Drawable until Flutter paints its first frame, then this splash
