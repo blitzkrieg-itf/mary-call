@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
+import 'variant.dart';
+
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
 
@@ -120,6 +122,31 @@ class _MapPageState extends State<MapPage> {
                 child: Text("除霊する"),
                 onPressed: () {
                   FlutterRingtonePlayer.stop();
+                  maries++;
+                  DateTime myTime =
+                      DateTime.now().add(Duration(hours: 9, minutes: 3));
+                  if (thisTimeMaries < 10) {
+                    set_times.add(myTime);
+                    showDialog(
+                        context: context,
+                        builder: (_) {
+                          return AlertDialog(
+                            title: Text("除霊成功！しかし…？"),
+                            content: Text("私メリーさん　今あなたの家の近くにいるの・・・"),
+                          );
+                        });
+                  } else {
+                    showDialog(
+                        context: context,
+                        builder: (_) {
+                          return AlertDialog(
+                            title: Text("除霊完了！！"),
+                            content: Text("さよならメリーさん！"),
+                          );
+                        });
+                    end++;
+                  }
+                  thisTimeMaries++;
                 })),
       ]),
       // floatingActionButton: _makeGpsIcon(),
@@ -147,36 +174,6 @@ class _MapPageState extends State<MapPage> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return Center(child: CircularProgressIndicator());
-
-          /*
-            return MapboxMap(
-                accessToken:
-                    "sk.eyJ1IjoiYW1peGVkY29sb3IiLCJhIjoiY2t0enFqNmt1MXliMjJwcXQ5amhhOTl2NSJ9._57ZEf9QRS391RNcdtsiuQ",
-                // 地図（スタイル）を指定（デフォルト地図の場合は省略可）
-                styleString: _style,
-                // 初期表示される位置情報を現在位置から設定
-                initialCameraPosition: CameraPosition(
-                  target: LatLng(_yourLocation!.latitude ?? _initialLat,
-                      _yourLocation!.longitude ?? _initialLong),
-                  zoom: 13.5,
-                ),
-                onMapCreated: (MapboxMapController controller) {
-                  _controller.complete(controller);
-                },
-                compassEnabled: true,
-                // 現在位置を表示する
-                myLocationEnabled: true,
-                // 地図をタップしたとき
-                onMapClick: (Point<double> point, LatLng tapPoint) {
-                  _controller.future.then((mapboxMap) {
-                    mapboxMap.moveCamera(CameraUpdate.newLatLng(tapPoint));
-                  });
-                  setState(() {
-                    _gpsTracking = false;
-                  });
-                  
-                });
-                */
         }
         if (snapshot.hasError) {
           return Text(snapshot.error.toString());
@@ -195,6 +192,17 @@ class _MapPageState extends State<MapPage> {
             ),
             onMapCreated: (MapboxMapController controller) {
               _controller.complete(controller);
+              if (count >= 2) {
+                showDialog(
+                  context: context,
+                  builder: (_) {
+                    return AlertDialog(
+                      title: Text("除霊失敗！！"),
+                      content: Text("今あなたの家の前にいるの・・・"),
+                    );
+                  },
+                );
+              }
               showDialog(
                 context: context,
                 builder: (_) {

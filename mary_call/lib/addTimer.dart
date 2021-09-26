@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 
 import 'variant.dart';
 import 'main.dart';
+import 'base.dart';
 
 class AddTimer extends StatefulWidget {
   // 状態を持ちたいので StatefulWidget を継承
@@ -28,7 +29,6 @@ class _AddTimerState extends State<AddTimer> {
     initializeDateFormatting('ja_JP', null);
     formatter = new DateFormat('HH:mm');
   }
-
   // extension TimeOfDayExtension on TimeOfDay {
   //   TimeOfDay addHour(int hour) {
   //     return this.replacing(hour: this.hour + hour, minute: this.minute);
@@ -77,10 +77,18 @@ class _AddTimerState extends State<AddTimer> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(''),
+                  Text("set time"),
                   Container(
+                    child: Text(
+                        // フォーマッターを使用して指定したフォーマットで日時を表示
+                        // format()に渡すのはDate型の値で、String型で返される
+                        formatter.format(_mytime),
+                        style: TextStyle(fontSize: 80)),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 100, top: 30),
                     child: FloatingActionButton.extended(
-                      label: Text('期限を入力'),
+                      label: Text('起きる時間'),
                       onPressed: () {
                         _selectTime(context);
                       },
@@ -88,39 +96,25 @@ class _AddTimerState extends State<AddTimer> {
                       icon: Icon(Icons.access_time),
                     ),
                   ),
-                  Text(''),
-                  Text(
-                    // フォーマッターを使用して指定したフォーマットで日時を表示
-                    // format()に渡すのはDate型の値で、String型で返される
-                    formatter.format(_mytime),
-                  ),
-                  const SizedBox(height: 8),
                   Container(
                     // 横幅いっぱいに広げる
                     width: double.infinity,
+                    margin: EdgeInsets.only(bottom: 40),
                     // リスト追加ボタン
                     child: ElevatedButton(
                       onPressed: () {
-                        // set_times.add(_mytime);
-                        set_times.add(_mytime.add(Duration(days: 1)));
+                        set_times.add(_mytime);
+                        // set_times.add(_mytime.add(Duration(days: 1)));
+                        count = 0;
+                        thisTimeMaries = 0;
                       },
-                      child: Text('登録', style: TextStyle(color: Colors.white)),
+                      child: Text('セット', style: TextStyle(color: Colors.white)),
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  Container(width: double.infinity, child: Text("累計除霊数")),
                   Container(
-                    // 横幅いっぱいに広げる
-                    width: double.infinity,
-                    // キャンセルボタン
-                    child: TextButton(
-                      // ボタンをクリックした時の処理
-                      onPressed: () {
-                        // "pop"で前の画面に戻る
-                        FlutterRingtonePlayer.stop();
-                      },
-                      child: Text('キャンセル'),
-                    ),
-                  ),
+                      child: Text(maries.toString(),
+                          style: TextStyle(fontSize: 100))),
                 ],
               ),
             ),

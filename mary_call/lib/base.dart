@@ -53,20 +53,20 @@ class _BasePageState extends State<BasePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pageList[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            title: Text('AddTimer'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Map'),
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.add),
+      //       title: Text('AddTimer'),
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       title: Text('Map'),
+      //     ),
+      //   ],
+      //   currentIndex: _selectedIndex,
+      //   onTap: _onItemTapped,
+      // ),
     );
   }
 
@@ -77,6 +77,12 @@ class _BasePageState extends State<BasePage> {
   }
 
   void _onTimer(Timer timer) {
+    if (end > 0 && end < 5) {
+      end++;
+    } else if (end > 0) {
+      _onItemTapped(0);
+      end = 0;
+    }
     print("counting");
     var now = DateTime.now();
     now = now.add(Duration(hours: 9));
@@ -84,12 +90,13 @@ class _BasePageState extends State<BasePage> {
     if (set_times != null) {
       set_time = set_times[0];
       print(set_time.toIso8601String());
-      var diff = set_time.difference(now).inSeconds.abs();
+      diff = set_time.difference(now).inSeconds.abs();
       print(diff);
       if (diff < 1) {
         FlutterRingtonePlayer.playAlarm();
         set_times.removeAt(0);
         print("start");
+        count++;
         _onItemTapped(1);
       }
     }
